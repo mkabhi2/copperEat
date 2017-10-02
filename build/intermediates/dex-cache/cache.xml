@@ -2,22 +2,139 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/abhmishr/repos/copperEat/coppereat/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\2dcf363317d99e0ad7d65af5eb16e244e893164c\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.3"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="/Users/abhmishr/repos/copperEat/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e3fe95451fc39617f8beaa85aebfca1fd1f79c11/classes.dex" />
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_46ef67093f1fb7256d1e038fdf161ed16389ba8e.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/abhmishr/repos/copperEat/coppereat/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\f766e292dee3b1cc2f96988178f96ff0d53c427e\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.3"
-        sha1="de10345233607b2d9914d0a3d9405a439caee539">
-        <dex dex="/Users/abhmishr/repos/copperEat/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_8b3da914ee7691d03e97543b775ba3b6bb38d283/classes.dex" />
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_23835c5a44e5a104156c12dff940f5a86a61c348.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\088272dd3ee7fc3ea9f4cb4a884aa13c4275d1d0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_e0b1407d65db10dbf60a91ea6738b0a7a4b7ec3e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\d0eb6fa06cd71c7b67de2e631ef74038f5acfe00\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_859350d543e34c7c7a8cdbb13ba4066ce833f572.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\vijaysingh\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.2_60e8cb930dcc078f5d9a56c92c0d7b2681ca1ad2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\19f185e26b52e62933247acac9ffb8350978aa8b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_df3c48672e38a06983afe6ad5a653af0465948aa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\a1e5fee928792af3f859a6a8e4f70ceb0a2c7c27\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_1f9eba1049b7aac1587939d247f380bc8217b940.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\vijaysingh\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\26.0.0-alpha1\support-annotations-26.0.0-alpha1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\support-annotations-26.0.0-alpha1_5f9e692e662193a727deb2bcecc751a310fd5ada.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\649eb9927cda2e3da23a7f1e2cfbbf38c9aa698b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_3f5a2c1b2a105ba339e13bcd89f9e50cffaddf3d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\826e24442a8e0b8b760a2c39da85250adfb096d0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_7ea7caa7c7507065d606b0d35d4af5804d06edb9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\5adfb6135003e5185d29bc4f4844ccc6ecaf9923\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_cb0ced72a057895b8218b681829eb813b56af907.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\b689dde864006688053c10c1fd7f523c77e7768b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_ac567cef80ad1c16f0d68dde116d03a23a968ce9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\d2b215f203ccd6e8f76facc0c20740125cce6d64\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_73ce74a2c85f17101d9159e5d68ed14e49ef00ef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\f2c2968b1af2c3592eca545cdf33dc9d2e211d6d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_397d27e6a39d682a7366de26f40e1c1b33575842.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\8951c3039289d7da52e0f55282545f173007715c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="D:\CopperEatMaster\coppereat\app\build\intermediates\pre-dexed\debug\classes_9b2f8006090fb72e9f47e37205e7601b11a3b352.jar" />
     </item>
 
 </items>
