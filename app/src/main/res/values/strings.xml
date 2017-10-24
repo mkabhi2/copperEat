@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Copper Eat</string>
+    <string name="app_name">FinalLoginProject</string>
+    <string name="facebook_app_id">1893464010944797</string>
+    <string name="fb_login_protocol_scheme">fb1893464010944797</string>
+    <string name="google_app_name">G+ Login</string>
+    <string name="action_settings">Settings</string>
+    <!-- Button text -->
+    <string name="btn_logout_from_google">Logout from Google</string>
+    <string name="btn_revoke_access">Revoke Access</string>
 </resources>
