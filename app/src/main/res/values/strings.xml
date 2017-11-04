@@ -6,4 +6,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="tiffin">Tiffin</string>
+    <string name="express_delivery">Express Delivery</string>
+    <string name="offers">Offers</string>
+    <string name="restaurants">Restaurants</string>
 </resources>
