@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class DishServiceGeneratorRetrofit {
-    private static final String BASE_URL = "http://192.168.0.7:8034/";
+    private static final String BASE_URL = "http://192.168.43.202:8080/";
 
     static OkHttpClient.Builder okhttpClientBuilder=new OkHttpClient.Builder();
     static HttpLoggingInterceptor httpLoggingInterceptor=new HttpLoggingInterceptor();
@@ -27,8 +27,14 @@ public class DishServiceGeneratorRetrofit {
 
     private static Retrofit retrofit = builder.build();
 
-    private static OkHttpClient.Builder httpClient =
-            new OkHttpClient.Builder();
+//    private static OkHttpClient.Builder httpClient =
+//            new OkHttpClient.Builder();
+
+//
+//    public static <S> S createService(Class<S> serviceClass) {
+//        Retrofit retrofit = builder.client(okhttpClientBuilder.build()).build();
+//        return retrofit.create(serviceClass);
+//    }
 
     public static <S> S createService(
             Class<S> serviceClass) {

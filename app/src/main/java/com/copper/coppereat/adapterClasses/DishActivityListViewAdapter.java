@@ -45,10 +45,10 @@ public class DishActivityListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view=convertView;
-        if(view==null){
+       // if(view==null){
             LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
            view= layoutInflater.inflate(R.layout.listview_dish,null);
-        }
+        //}
         ImageView imageView=(ImageView)view.findViewById(R.id.imageViewl1);
         TextView textView=(TextView)view.findViewById(R.id.textViewl1);
 

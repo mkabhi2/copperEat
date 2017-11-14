@@ -20,15 +20,40 @@ public class DishTabLayoutPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         DishFragment dishFragment;
-             if(position<getCount()){
+//        if (position <= getCount()) {
+//            dishFragment = new DishFragment();
+//            return dishFragment;
+//        } else {
+//            return null;
+//        }
+        switch (position) {
+            case 0:
                 dishFragment=new DishFragment();
-                return dishFragment;
-            }else
-                return null;
+            break;
+
+            case 1:
+                if(DishActivity.flag==-1){
+                    DishActivity.flag=-2;
+                    dishFragment=null;
+                }else {
+                    dishFragment=new DishFragment();
+                }
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                dishFragment=new DishFragment();
+                //return dishFragment;
+                break;
+            default:
+                dishFragment= null;
+
+        }
+        return dishFragment;
     }
 
     @Override
     public int getCount() {
-        return dishActivity.getDishCategoryList().size();
+        return 6;//dishActivity.getDishCategoryList().size();
     }
 }

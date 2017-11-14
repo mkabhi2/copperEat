@@ -1,5 +1,6 @@
 package com.copper.coppereat;
 
+import android.app.IntentService;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,9 +15,11 @@ import com.copper.coppereat.adapterClasses.DishTabLayoutPagerAdapter;
 import com.copper.coppereat.customObjects.Dish;
 import com.copper.coppereat.retrofitClient.DishClient;
 import com.copper.coppereat.retrofitServiceGenerator.DishServiceGeneratorRetrofit;
+import com.copper.coppereat.retrofitServiceGenerator.DishServiceRetrofitGeneratorSynchronus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -26,13 +29,16 @@ import retrofit2.Retrofit;
 
 public class DishActivity extends AppCompatActivity {
 
+    public static int flag=-1;
     String restrauntID="101";
-    private List<Dish> dihsCategoryList=null;
-    private List<Dish> dishDetailsList=null;
+    private static TreeSet<String> dihsCategoryList=new TreeSet<String>();
+    private static List<Dish> dishDetailsList=null;
     private static TabLayout dishCategoryTabLayout;
     SwitchCompat vegDishFilter;
     boolean isVegItemsSelected=false;
     TextView b;
+    ViewPager dishFragmentViewPager;
+    static int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,32 +48,32 @@ public class DishActivity extends AppCompatActivity {
         vegDishFilter=(SwitchCompat)findViewById(R.id.dishActivityswitchButton);
         vegDishFilter.setChecked(false);
         b=(TextView) findViewById(R.id.tex);
-        final ViewPager dishFragmentViewPager = (ViewPager) findViewById(R.id.dishActivityViewPager);
 
-        getDishCategoryForSelectedRestraunt(restrauntID);
+        dishFragmentViewPager= (ViewPager) findViewById(R.id.dishActivityViewPager);
+        //dishFragmentViewPager.setOffscreenPageLimit(6);
         getDishDetailsForSelectedRestraunt(restrauntID);
-        addDishCategoryAsTabsToTabLayout(dishCategoryTabLayout);
-        DishTabLayoutPagerAdapter dishTabLayoutPagerAdapter=new DishTabLayoutPagerAdapter(getSupportFragmentManager());
-        dishFragmentViewPager.setAdapter(dishTabLayoutPagerAdapter);
+
+//        DishTabLayoutPagerAdapter dishTabLayoutPagerAdapter=new DishTabLayoutPagerAdapter(getSupportFragmentManager());
+//        dishFragmentViewPager.setAdapter(dishTabLayoutPagerAdapter);
 
 
-        dishFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(dishCategoryTabLayout));
-        dishCategoryTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                dishFragmentViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        dishFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(dishCategoryTabLayout));
+//        dishCategoryTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                dishFragmentViewPager.setCurrentItem(tab.getPosition());
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 
 
         vegDishFilter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -76,7 +82,7 @@ public class DishActivity extends AppCompatActivity {
                 if(isChecked){
                     b.setText("checked");
                 }else {
-                    b.setText("not checed");
+                    b.setText("not checked");
                 }
             }
         });
@@ -84,36 +90,10 @@ public class DishActivity extends AppCompatActivity {
 
     public void addDishCategoryAsTabsToTabLayout(TabLayout tabLayout){
         if(dihsCategoryList!=null && tabLayout!=null){
-            for (Dish dish:dihsCategoryList) {
-                tabLayout.addTab(tabLayout.newTab().setText(dish.getDishType()));
+            for (String string:dihsCategoryList) {
+                tabLayout.addTab(tabLayout.newTab().setText(string));
             }
         }
-    }
-
-    public void getDishCategoryForSelectedRestraunt(String restrauntID){
-
-
-
-
-//            DishClient dishClient = DishServiceGeneratorRetrofit.createService(DishClient.class);
-//            Dish dish = new Dish(restrauntID);
-//            Call<List<Dish>> call = dishClient.getDishCategory(dish);
-//            try{
-//            call.enqueue(new Callback<List<Dish>>() {
-//                @Override
-//                public void onResponse(Call<List<Dish>> call, Response<List<Dish>> response) {
-//                    setDishCategoryList(response.body());
-//                    addDishCategoryAsTabsToTabLayout(dishCategoryTabLayout);
-//                }
-//
-//                @Override
-//                public void onFailure(Call<List<Dish>> call, Throwable t) {
-//
-//                }
-//            });
-//        }catch (Exception e){
-//
-//        }
     }
 
     public void getDishDetailsForSelectedRestraunt(String restrauntID) {
@@ -136,16 +116,50 @@ public class DishActivity extends AppCompatActivity {
         }
     }
 
-    public List<Dish> getDishCategoryList(){
-        return dishDetailsList;
+    public TreeSet<String > getDishCategoryList(){
+        return dihsCategoryList;
     }
 
-    public void setDishCategoryList(List<Dish> dihsCategoryList){
-        this.dihsCategoryList=dihsCategoryList;
+    public void setDishCategoryList(List<Dish> dishDetailsList){
+        for (Dish d:dishDetailsList) {
+            dihsCategoryList.add(d.getDishType());
+        }
+
+        addDishCategoryAsTabsToTabLayout(dishCategoryTabLayout);
     }
 
     public void setDishDetailsList(List<Dish> dishDetailsList){
         this.dishDetailsList=dishDetailsList;
+        setDishCategoryList(dishDetailsList);
+        performRest();
+    }
+
+    public void performRest(){
+
+        DishTabLayoutPagerAdapter dishTabLayoutPagerAdapter=new DishTabLayoutPagerAdapter(getSupportFragmentManager());
+        dishFragmentViewPager.setAdapter(dishTabLayoutPagerAdapter);
+        dishFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(dishCategoryTabLayout));
+//        dishCategoryTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                position=tab.getPosition();
+//                //DishFragment dishFragment=new DishFragment();
+//                //dishCategoryTabLayout.getTabAt(tab.getPosition()).select();
+//                dishFragmentViewPager.setCurrentItem(tab.getPosition());
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+
+
     }
 
     public List<Dish> getDishDetailsList(){
@@ -155,5 +169,7 @@ public class DishActivity extends AppCompatActivity {
     public static TabLayout getDishActivityTabLayout(){
         return dishCategoryTabLayout;
     }
+
+
 
 }

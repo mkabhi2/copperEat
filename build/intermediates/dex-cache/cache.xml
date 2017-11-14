@@ -3,21 +3,75 @@
 
     <item
         is-multidex="true"
-        jar="/Users/abhmishr/repos/copperEat/coppereat/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/Users/kumarpallav/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.3.0/9e09011e9767bb76b5e27c9b8223476b93b14631/converter-gson-2.3.0.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="/Users/abhmishr/repos/copperEat/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e3fe95451fc39617f8beaa85aebfca1fd1f79c11/classes.dex" />
+        sha1="9e09011e9767bb76b5e27c9b8223476b93b14631">
+        <dex dex="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10/converter-gson-2.3.0_4d0e15fb01d32aafcdba25737f62d5793b1adf3b/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/abhmishr/repos/copperEat/coppereat/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="de10345233607b2d9914d0a3d9405a439caee539">
-        <dex dex="/Users/abhmishr/repos/copperEat/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_8b3da914ee7691d03e97543b775ba3b6bb38d283/classes.dex" />
+        sha1="12920f9016b8b05acbc2af7cdc13cef6946fe7d3">
+        <dex dex="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c7204d03c54d0d6c845815f9441776ae9ec67b84/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e7b72f8cd9193dbfeea1fb2a5033aebdc0b9f2f0">
+        <dex dex="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_2396ff569ac5ec07437364604293f9598719cd89/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kumarpallav/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.7_c69713655506fe2078c0458acc2481481d0fc45e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kumarpallav/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.8.0/5a11f020cce2d11eb71ba916700600e18c4547e7/okhttp-3.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a11f020cce2d11eb71ba916700600e18c4547e7">
+        <dex dex="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.8.0_004706860462193b1b1e92fd8089e557f019e557/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kumarpallav/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.13.0_8fb76e9d4c34290b7227be5b1052dfcd4977707e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kumarpallav/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/3.5.0/94c11f915bfe1aeaa5ef6351ddfbe58bae1ea397/logging-interceptor-3.5.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="94c11f915bfe1aeaa5ef6351ddfbe58bae1ea397">
+        <dex dex="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10/logging-interceptor-3.5.0_5997a6cfbe0f4cd6467b1685f32fa24b9ef1fe6e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kumarpallav/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.3.0/bcacde6a8ccedcc56c127403d26b76072fe6214d/retrofit-2.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bcacde6a8ccedcc56c127403d26b76072fe6214d">
+        <dex dex="/Users/kumarpallav/Desktop/coppereat_vij/coppereat/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-2.3.0_578269908a8359bb007e937d5953bfe19ec78675/classes.dex" />
     </item>
 
 </items>

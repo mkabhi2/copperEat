@@ -28,19 +28,23 @@ public class DishFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+      //  if(currentTabPosition<=5) {
+            View view = inflater.inflate(R.layout.fragment_dish, container, false);
+            dishFragmentListView = (ListView) view.findViewById(R.id.dishFragmentListView);
 
-        View view=inflater.inflate(R.layout.fragment_dish,container,false);
-        dishFragmentListView=(ListView) view.findViewById(R.id.dishFragmentListView);
 
+            DishActivityListViewAdapter customAdapter = new DishActivityListViewAdapter(getContext(), getContentsForCurrentTab());
+            dishFragmentListView.setAdapter(customAdapter);
 
-        DishActivityListViewAdapter customAdapter=new DishActivityListViewAdapter(getContext(),getContentsForCurrentTab());
-        dishFragmentListView.setAdapter(customAdapter);
-
-        return view;
+            return view;
+      //  }else if()
     }
 
     public ArrayList<Dish> getContentsForCurrentTab(){
-        String tabName=DishActivity.getDishActivityTabLayout().getTabAt(currentTabPosition++).getText().toString();
+       // TabLayout tb=DishActivity.getDishActivityTabLayout();
+       // TabLayout.Tab tab=tb.getTabAt(0);
+       // String string=tab.getText().toString();
+        String tabName=DishActivity.getDishActivityTabLayout().getTabAt(DishActivity.position).getText().toString();
         return extractDishForCurrentTabFromDishDetails(tabName);
     }
     public ArrayList<Dish> extractDishForCurrentTabFromDishDetails(String tabName){
