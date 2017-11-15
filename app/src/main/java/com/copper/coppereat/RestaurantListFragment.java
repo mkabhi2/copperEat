@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.copper.coppereat.adapterClasses.MyRestaurantRecyclerViewAdapter;
-import com.copper.coppereat.customObjects.Restaurants;
-import com.copper.coppereat.utilityClasses.RecyclerItemClickListener;
-import com.copper.coppereat.utilityClasses.RestaurantListItemDecoration;
+import com.copper.coppereat.adapterClasses.RecyclerViewAdapter;
+import com.copper.coppereat.customObjects.Restaurant;
+import com.copper.coppereat.utilityClasses.RVItemClickListener;
+import com.copper.coppereat.utilityClasses.RVItemDecoration;
 
 import java.util.ArrayList;
 
@@ -23,46 +23,35 @@ import java.util.ArrayList;
 
 public class RestaurantListFragment extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private static final String RESTRAUNT_LIST = "restraunt-list";
-    private static final int FILTER_REQUEST = 1;
+    ArrayList<Object> restaurantsList = new ArrayList<Object>();
+    public RecyclerView recyclerView;
+    private Context context;
 
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    private int expressDelivery;
-    private String sortValue;
-    ArrayList<String> priceValues;
-    ArrayList<String> filterValues;
-    ArrayList<Restaurants> restaurantsList;
-    public RecyclerView recyclerView;
 
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public RestaurantListFragment() {
+        //mandatory empty constructor
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static RestaurantListFragment newInstance(int columnCount, ArrayList<Restaurants> restaurants) {
+    public static RestaurantListFragment newInstance(int columnCount, ArrayList<Restaurant> restaurants) {
         RestaurantListFragment fragment = new RestaurantListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        args.putParcelableArrayList(RESTRAUNT_LIST, restaurants);
+        args.putInt("column-count", columnCount);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-            restaurantsList = getArguments().getParcelableArrayList(RESTRAUNT_LIST);
+            int mColumnCount = getArguments().getInt("column-count");
+            if(getArguments().getParcelableArrayList("restraunt-list")!=null){
+                restaurantsList.addAll(getArguments().getParcelableArrayList("restraunt-list"));
+            }
         }
     }
 
@@ -72,42 +61,15 @@ public class RestaurantListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-        // Set the adapter
-        if (true) {
-            final Context context = view.getContext();
-            recyclerView = (RecyclerView) view.findViewById(R.id.recycle_list);
-            /*
-            Dummy Data
-            restaurantsList = new ArrayList<Restaurants>();
-            for(int i=0;i<20;i++){
-                 restaurantsList.add(new Restaurants(1,"Bubbly","Bub@gg.com","123","1234","1234","1234","1234","Halwa puri khao","rrr . No min order . 45 mins","15% Off","3.9",12960));
-            }
-            */
+        context = view.getContext();
 
-            recyclerView.setAdapter(new MyRestaurantRecyclerViewAdapter(restaurantsList, getContext()));
-            recyclerView.addItemDecoration(new RestaurantListItemDecoration() );
-            recyclerView.setNestedScrollingEnabled(false); //False enables to let it scroll with whole activity
+        setUpRecyclerView(recyclerView);
 
-
-            //Adding touch listener to recycler view
-            recyclerView.addOnItemTouchListener(
-                    new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
-                        @Override public void onItemClick(View view, int position) {
-
-                            //TODO REPLACE WITH ORIGINAL RESTAURANT DETAILS ACTIVITY
-                            Intent intent = new Intent();
-                            intent.setClass(context,TempTestingActivity.class);
-                            startActivity(intent);
-                        }
-                    })
-            );
-
-
-        }
         return view;
     }
 
@@ -140,7 +102,31 @@ public class RestaurantListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Restaurants item);
+        void onListFragmentInteraction(Restaurant item);
+    }
+
+    private void setUpRecyclerView(RecyclerView recyclerView){
+
+        if(HomeScreenActivity.allRestaurants!=null && restaurantsList.isEmpty()){
+            restaurantsList.addAll(HomeScreenActivity.allRestaurants);
+        }
+        recyclerView.setAdapter(new RecyclerViewAdapter(restaurantsList, getContext()));
+        recyclerView.addItemDecoration(new RVItemDecoration() );
+
+        //False enables to let it scroll with whole activity
+        recyclerView.setNestedScrollingEnabled(false);
+
+        //Adding touch listener to recycler view
+        recyclerView.addOnItemTouchListener(
+                new RVItemClickListener(context, new RVItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+
+                        //TODO REPLACE WITH ORIGINAL RESTAURANT DETAILS ACTIVITY
+                        Intent intent = new Intent();
+                        intent.setClass(context,TempTestingActivity.class);
+                        startActivity(intent);
+                    }
+                })
+        );
     }
 }

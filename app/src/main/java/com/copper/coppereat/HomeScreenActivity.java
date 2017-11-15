@@ -1,6 +1,7 @@
 package com.copper.coppereat;
 
 import android.app.Dialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,10 +19,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.copper.coppereat.adapterClasses.MyRestaurantRecyclerViewAdapter;
-import com.copper.coppereat.adapterClasses.SimpleFragmentPagerAdapter;
-import com.copper.coppereat.customObjects.RestaurantComparator;
-import com.copper.coppereat.customObjects.Restaurants;
+import com.copper.coppereat.adapterClasses.RecyclerViewAdapter;
+import com.copper.coppereat.adapterClasses.TabAdapterHomeScreen;
+import com.copper.coppereat.customObjects.Dish;
+import com.copper.coppereat.customObjects.Restaurant;
+import com.copper.coppereat.utilityClasses.ArrayListComparator;
 import com.copper.coppereat.utilityClasses.RetroFitNetworkClient;
 
 import java.util.ArrayList;
@@ -35,11 +37,25 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeScreenActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener , RestaurantListFragment.OnListFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener , RestaurantListFragment.OnListFragmentInteractionListener, RecommendedRestaurantFragment.OnFragmentInteractionListener, FavouritesFragment.OnFragmentInteractionListener{
 
-    ArrayList<Restaurants> restaurants;
+    static ArrayList<Restaurant> allRestaurants;
+    //TODO IMPLEMENT THESE ALL THROUGH RETROFIT
+    static ArrayList<Restaurant> expressRestaurants = new ArrayList<Restaurant>();
+    static ArrayList<Restaurant> highlyRatedRestaurants = new ArrayList<Restaurant>();
+    static ArrayList<Restaurant> popularRestaurants = new ArrayList<Restaurant>();
+    static ArrayList<Restaurant> inOfferRestaurants = new ArrayList<Restaurant>();
+    static ArrayList<Restaurant> favouritesRestaurants = new ArrayList<Restaurant>();
+    static ArrayList<Restaurant> alreadyOrderedFromRestaurants = new ArrayList<Restaurant>();
+    //TODO IMPLEMENT WHEN SURE TO USE
+    static ArrayList<Dish> highlyRatedDishes = new ArrayList<Dish>();
+    static ArrayList<Dish> popularDishes = new ArrayList<Dish>();
+    static ArrayList<Dish> favouriteDishes = new ArrayList<Dish>();
+
+    static ArrayList<Object> favouritesList = new ArrayList<Object>();
+    
     ViewPager viewPager;
-    SimpleFragmentPagerAdapter simpleFragmentPagerAdapter;
+    TabAdapterHomeScreen tabAdapterHomeScreen;
     RecyclerView recyclerViewOfRestaurantListFragment;
 
     //Variables Declared for Dialogs
@@ -60,30 +76,13 @@ public class HomeScreenActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getRestaurantsListFromNetwork();
+        //get restaurants from the network
+        getAllRestaurantsListFromNetwork();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO IMPLEMENT ALL DIALOGS
-                if(viewPager.getCurrentItem()==0){
-                    createRestaurantListFilterDialog();
-                    updateRestrauntListBasedOnFilters();
-                }
-                if(viewPager.getCurrentItem()==1){}
-                if(viewPager.getCurrentItem()==2){}
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //set up view
+        setUpTabs();
+        setUpFloatingButton();
+        setUpNavigationDrawer(toolbar);
     }
 
     @Override
@@ -144,7 +143,7 @@ public class HomeScreenActivity extends AppCompatActivity
     }
 
 
-    public void getRestaurantsListFromNetwork(){
+    public void getAllRestaurantsListFromNetwork(){
 
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("http://18.220.28.118:8080")
@@ -152,49 +151,116 @@ public class HomeScreenActivity extends AppCompatActivity
         Retrofit retrofit = builder.build();
 
         RetroFitNetworkClient retroFitNetworkClient = retrofit.create(RetroFitNetworkClient.class);
-        Call<List<Restaurants>> call = retroFitNetworkClient.getRestrauntListForLocation("560037");
+        Call<List<Restaurant>> call = retroFitNetworkClient.getRestrauntListForLocation("560037");
 
-        call.enqueue(new Callback<List<Restaurants>>() {
+        call.enqueue(new Callback<List<Restaurant>>() {
             @Override
-            public void onResponse(Call<List<Restaurants>> call, Response<List<Restaurants>> response) {
-                restaurants = (ArrayList<Restaurants>) response.body();
-                setUpTabs();
+            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+                allRestaurants = (ArrayList<Restaurant>) response.body();
+
+                RecyclerView recyclerViewAllRestaurantListFragment = tabAdapterHomeScreen.restaurantListFragment.recyclerView;
+                RecyclerView bestOfferRV = tabAdapterHomeScreen.recommendedFragment.bestOfferRV;
+                RecyclerView expressRV = tabAdapterHomeScreen.recommendedFragment.expressRV;
+                RecyclerView orderAgainRV = tabAdapterHomeScreen.recommendedFragment.orderAgainRV;
+                RecyclerView popularRV = tabAdapterHomeScreen.recommendedFragment.popularRV;
+                RecyclerView topRatedRV = tabAdapterHomeScreen.recommendedFragment.topRatedRV;
+
+                updateAllRestaurantListAdapter(recyclerViewAllRestaurantListFragment, new ArrayList<Object>(allRestaurants));
+
+                popularRestaurants.addAll(allRestaurants);
+                highlyRatedRestaurants.addAll(allRestaurants);
+
+                Collections.sort(popularRestaurants, new ArrayListComparator("Popularity"));
+                List<Restaurant> tempPopularRestaurants = popularRestaurants.subList(0,(popularRestaurants.size()>10 ? 10 : popularRestaurants.size()));
+                updateAllRestaurantListAdapter(popularRV, new ArrayList<Object>(tempPopularRestaurants));
+                tempPopularRestaurants.clear();
+
+                Collections.sort(highlyRatedRestaurants, new ArrayListComparator("Ratings"));
+                List<Restaurant> tempHighlyRatedRestaurants = highlyRatedRestaurants.subList(0,(highlyRatedRestaurants.size()>10 ? 10 : highlyRatedRestaurants.size()));
+                updateAllRestaurantListAdapter(topRatedRV, new ArrayList<Object>(tempHighlyRatedRestaurants));
+                tempHighlyRatedRestaurants.clear();
+
+                for(Restaurant restaurant : allRestaurants){
+                    //TODO IMPLEMENT TO POPULATE OTHER LISTS this one is just a template
+                    if(restaurant.getOffer()!=null && !restaurant.getOffer().equals("0")) {
+                        inOfferRestaurants.add(restaurant);
+                    }
+                }
+
+                Collections.sort(inOfferRestaurants, new ArrayListComparator("all"));
+                List<Restaurant> tempInOfferRestaurants = inOfferRestaurants.subList(0,(inOfferRestaurants.size()>10 ? 10 : inOfferRestaurants.size()));
+                updateAllRestaurantListAdapter(bestOfferRV, new ArrayList<Object>(tempInOfferRestaurants));
+                tempInOfferRestaurants.clear();
             }
 
             @Override
-            public void onFailure(Call<List<Restaurants>> call, Throwable t) {
+            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
                 Toast.makeText(HomeScreenActivity.this, "Error loading data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void updateAllRestaurantListAdapter(RecyclerView recyclerView, ArrayList<Object> newRestaurantsList){
+        recyclerView.setAdapter(new RecyclerViewAdapter(newRestaurantsList, HomeScreenActivity.this));
+        recyclerView.invalidate();
+    }
+
+    private void setUpNavigationDrawer(Toolbar toolbar){
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setUpFloatingButton(){
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO IMPLEMENT ALL DIALOGS
+                if(viewPager.getCurrentItem()==0){
+                    createRestaurantListFilterDialog();
+                    updateRestrauntListBasedOnFilters();
+                }
+                if(viewPager.getCurrentItem()==1){}
+                if(viewPager.getCurrentItem()==2){}
             }
         });
     }
 
     public void setUpTabs(){
 
-        //Tabs for Home screen
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-
-        //Adapter that knows which fragment should be shown on each page
-        simpleFragmentPagerAdapter = new SimpleFragmentPagerAdapter(this, getSupportFragmentManager(), restaurants);
-
-        // Set the adapter onto the view pager
-        viewPager.setAdapter(simpleFragmentPagerAdapter);
-
-        // Give the TabLayout the ViewPager
+        tabAdapterHomeScreen = new TabAdapterHomeScreen(this, getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapterHomeScreen);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
-    public void onListFragmentInteraction(Restaurants item) {
+    public void onListFragmentInteraction(Restaurant item) {
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
     //TODO IMPLEMENT ALL DIALOGS
 
     public void createRestaurantListFilterDialog(){
 
         final Dialog restaurantListFilterDialog = new Dialog(this);
-        restaurantListFilterDialog.setContentView(R.layout.restaurant_list_filter_dialog);
+        restaurantListFilterDialog.setContentView(R.layout.dialog_restaurant_list_filter);
         restaurantListFilterDialog.show();
         sortButton1 = restaurantListFilterDialog.findViewById(R.id.button);
         sortButton2 = restaurantListFilterDialog.findViewById(R.id.button6);
@@ -283,7 +349,7 @@ public class HomeScreenActivity extends AppCompatActivity
     public void createFavoritesFilterDialog(){}
 
     public void updateRestrauntListBasedOnFilters(){
-        ArrayList<Restaurants> tempRestaurantsList =new ArrayList<Restaurants>(restaurants);
+        ArrayList<Object> tempRestaurantsList =new ArrayList<Object>(allRestaurants);
 
         //Updating list based on user filter selection
         if(!filterValues.isEmpty() || !priceValues.isEmpty() || expressDelivery==1){
@@ -296,16 +362,16 @@ public class HomeScreenActivity extends AppCompatActivity
                     continue;
                 }
 
-                if(!priceValues.isEmpty() && !priceValues.contains(tempRestaurantsList.get(itemCount).getBudget())){
+                Restaurant r = (Restaurant) tempRestaurantsList.get(itemCount);
+
+                if(!priceValues.isEmpty() && !priceValues.contains(r.getBudget())){
                     tempRestaurantsList.remove(itemCount);
                     continue;
                 }
 
                 for(int filterCount=0;filterCount<filterValues.size();filterCount++){
                     if(!filterValues.isEmpty()
-                            && !tempRestaurantsList
-                            .get(itemCount)
-                            .getDishTypes()
+                            && !r.getDishTypes()
                             .contains(filterValues.get(filterCount))){
                         tempRestaurantsList.remove(itemCount);
                         break;
@@ -317,11 +383,10 @@ public class HomeScreenActivity extends AppCompatActivity
 
         //SORT RESTRAUNT LIST BASED ON THE SORT CRITERIA SELECTED BY THE USER
         if(sortValue!=null){
-            Collections.sort(tempRestaurantsList, new RestaurantComparator(sortValue));
+            Collections.sort(tempRestaurantsList, new ArrayListComparator(sortValue));
         }
-        recyclerViewOfRestaurantListFragment = simpleFragmentPagerAdapter.restaurantListFragment[0].recyclerView;
-
-        recyclerViewOfRestaurantListFragment.setAdapter(new MyRestaurantRecyclerViewAdapter(tempRestaurantsList, HomeScreenActivity.this));
+        recyclerViewOfRestaurantListFragment = tabAdapterHomeScreen.restaurantListFragment.recyclerView;
+        recyclerViewOfRestaurantListFragment.setAdapter(new RecyclerViewAdapter(tempRestaurantsList, HomeScreenActivity.this));
         recyclerViewOfRestaurantListFragment.invalidate();
     }
 

@@ -1,6 +1,6 @@
 package com.copper.coppereat.utilityClasses;
 
-import com.copper.coppereat.customObjects.Restaurants;
+import com.copper.coppereat.customObjects.Restaurant;
 
 import java.util.List;
 
@@ -15,5 +15,5 @@ import retrofit2.http.Query;
 public interface RetroFitNetworkClient {
 
     @GET("/messenger/webapi/restraunt/specificrest")
-    Call<List<Restaurants>> getRestrauntListForLocation(@Query("pincode") String pincode);
+    Call<List<Restaurant>> getRestrauntListForLocation(@Query("pincode") String pincode);
 }
