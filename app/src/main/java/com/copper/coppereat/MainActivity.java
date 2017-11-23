@@ -8,20 +8,25 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    Button bb;
+    UserSession userSession;
+    Button logoutButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bb=(Button)findViewById(R.id.button2);
+        logoutButton=(Button)findViewById(R.id.button2);
+        userSession=new UserSession(this);
+        if(userSession.loggedIn()){
+            //keep on home page
+        }else {
+            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+        }
 
-        bb.setOnClickListener(new View.OnClickListener() {
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ii= new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(ii);
-
+                userSession.setLoggedIn(false);
             }
         });
     }

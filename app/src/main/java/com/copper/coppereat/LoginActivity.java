@@ -59,6 +59,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener {
+
+    UserSession userSession;
+
     private RelativeLayout loginActivityRL;
     private Button nextButton;
     private int showPasswordButtonID = -1;
@@ -79,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar progressBar;
     private Button gmailButton;
     private SignInButton signInButton;
+
 
     //Signing Options
     private GoogleSignInOptions gso;
@@ -103,6 +107,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.activity_login);
+
+        userSession=new UserSession(this);
 
         loginActivityRL = (RelativeLayout) findViewById(R.id.loginActivityRL);
         nextButton = (Button) findViewById(R.id.nextButton);
@@ -269,6 +275,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         protected void onPostExecute(String result) {
             progressBar.setVisibility(View.GONE);
             if(result.contains("true")) {
+                userSession.setLoggedIn(true);
                 Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
             }else {
                 Toast.makeText(LoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();

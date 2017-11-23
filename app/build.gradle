@@ -42,6 +42,8 @@ dependencies {
     compile files('libs/mail.jar')
 }
 
+
+
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
         def requested = details.requested

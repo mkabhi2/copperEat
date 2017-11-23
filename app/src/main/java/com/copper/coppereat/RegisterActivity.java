@@ -24,6 +24,8 @@ import java.net.URL;
 
 public class RegisterActivity extends AppCompatActivity  implements View.OnClickListener {
 
+    UserSession userSession;
+
     private EditText nameEditText;
     private EditText mobileEditText;
     private EditText emailEditText;
@@ -38,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        userSession=new UserSession(this);
 
         registerActivityToolbar = (Toolbar) findViewById(R.id.registerPageToolbar);
         nameEditText = (EditText) findViewById(R.id.registerNameEditText);
@@ -165,6 +169,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         protected void onPostExecute(String result) {
             registerProgressBar.setVisibility(View.GONE);
             if (result.contains("true")) {
+                userSession.setLoggedIn(true);
                 Toast.makeText(RegisterActivity.this, "Succesfully registerd", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(RegisterActivity.this, "Please Fill mandatory fields", Toast.LENGTH_SHORT).show();
