@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class DishServiceGeneratorRetrofit {
-    private static final String BASE_URL = "http://192.168.43.202:8080/";
+    private static final String BASE_URL = "http://192.168.0.3:8080/";
 
     static OkHttpClient.Builder okhttpClientBuilder=new OkHttpClient.Builder();
     static HttpLoggingInterceptor httpLoggingInterceptor=new HttpLoggingInterceptor();

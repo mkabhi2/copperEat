@@ -19,9 +19,16 @@ public class Dish {
     private String dishAvailabilityTimmingSlot3;
     private String dishAvailabilityTimmingSlot4;
     private String dishAvailabilityFullDay;
+    private String dishCategory;
+
 
     public Dish() {
 
+    }
+
+    public Dish(String dishName,String dishPrice){
+        this.dishName=dishName;
+        this.dishPrice=dishPrice;
     }
 
     public Dish(String restrauntID){
@@ -30,7 +37,7 @@ public class Dish {
 
     public Dish(long dishID, String dishName, String dishPhoto, String dishPrice, String dishQuantity,
                 String dishType, String dishAvailabilityTimmingSlot1, String dishAvailabilityTimmingSlot2,
-                String dishAvailabilityTimmingSlot3, String dishAvailabilityTimmingSlot4, String dishAvailabilityFullDay) {
+                String dishAvailabilityTimmingSlot3, String dishAvailabilityTimmingSlot4, String dishAvailabilityFullDay,String dishCategory) {
         this.dishAvailabilityFullDay = dishAvailabilityFullDay;
         this.dishAvailabilityTimmingSlot1 = dishAvailabilityTimmingSlot1;
         this.dishAvailabilityTimmingSlot2 = dishAvailabilityTimmingSlot2;
@@ -42,9 +49,17 @@ public class Dish {
         this.dishPrice = dishPrice;
         this.dishType = dishType;
         this.dishQuantity = dishQuantity;
+        this.dishCategory=dishCategory;
 
     }
 
+    public String getDishCategory(){
+        return dishCategory;
+    }
+
+    public void setDishCategory(String dishCategory){
+        this.dishCategory=dishCategory;
+    }
     public long getDishID() {
         return dishID;
     }

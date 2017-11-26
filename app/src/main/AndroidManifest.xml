@@ -18,11 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DishActivity"></activity>
+        <activity android:name=".DishActivity" />
 
         <service
             android:name=".BackgroundService"
             android:exported="false" />
+
+        <activity android:name=".CheckoutActivity" />
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

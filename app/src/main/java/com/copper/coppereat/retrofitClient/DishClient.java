@@ -21,7 +21,5 @@ public interface DishClient {
     @POST("/messenger/webapi/restrauntdish/dishdetails")
     Call<List<Dish>> getDishDetails(@Body Dish dish);
 
-    @POST("/messenger/webapi/restrauntdish")
-    Call<List<Dish>> getDishCategory(@Body Dish dish);
 
 }

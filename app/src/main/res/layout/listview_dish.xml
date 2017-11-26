@@ -1,27 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-android:orientation="vertical" android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:weightSum="1">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:weightSum="1">
 
-<ImageView
-    android:id="@+id/imageViewl1"
-    android:layout_width="125dp"
-    android:layout_height="125dp"
-    app:srcCompat="@mipmap/ic_launcher"
-    android:layout_weight="0.13" />
+    <TextView
+        android:id="@+id/dishNameCheckoutListViewTextView"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:text="TextView" />
 
-<TextView
-    android:id="@+id/textViewl1"
-    android:layout_width="200dp"
-    android:layout_height="50dp"
-    android:layout_alignParentTop="true"
-    android:layout_marginLeft="16dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="32dp"
-    android:layout_toRightOf="@+id/imageViewl1"
-    android:layout_toEndOf="@+id/imageViewl1"
-    android:text="TextView" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/dishNameCheckoutListViewTextView"
+        android:weightSum="2">
 
+
+        <Button
+            android:id="@+id/decreaseByOneCheckoutListViewButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/dishNameCheckoutListViewTextView"
+            android:layout_toEndOf="@+id/dishNameCheckoutListViewTextView"
+            android:layout_toRightOf="@+id/dishNameCheckoutListViewTextView"
+            android:layout_weight=".5"
+            android:text="-"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/addCheckoutListViewButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/decreaseByOneCheckoutListViewButton"
+            android:layout_alignBottom="@+id/decreaseByOneCheckoutListViewButton"
+            android:layout_toEndOf="@+id/decreaseByOneCheckoutListViewButton"
+            android:layout_toRightOf="@+id/decreaseByOneCheckoutListViewButton"
+            android:layout_weight="1"
+            android:text="ADD" />
+
+        <Button
+            android:id="@+id/increaseByOneCheckoutListViewButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/decreaseByOneCheckoutListViewButton"
+            android:layout_alignBottom="@+id/decreaseByOneCheckoutListViewButton"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_weight=".5"
+            android:text="+"
+            android:textSize="17sp" />
+
+
+    </LinearLayout>
 </RelativeLayout>
